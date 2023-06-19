@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Telemetry</string>
+    <string name="reload_title">reload</string>
+    <string name="last_seen">Last seen:</string>
+    <string name="last_value">Last value:</string>
+    <string name="server_connect_error">Can\'t connect to server</string>
+</resources>
