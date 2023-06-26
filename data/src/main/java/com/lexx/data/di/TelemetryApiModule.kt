@@ -2,10 +2,13 @@ package com.lexx.data.di
 
 import com.lexx.data.BuildConfig
 import com.lexx.data.api.telemetry.TelemetryApiService
+import com.lexx.data.api.telemetry.util.OkHttpInterceptor
+import com.lexx.domain.features.settings.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -19,10 +22,21 @@ object TelemetryApiModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(BASE_URL : String) : Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
-        .build()
+    fun provideRetrofit(
+        BASE_URL : String,
+        settingsRepository: SettingsRepository
+    ) : Retrofit {
+        var client = OkHttpClient.Builder()
+            .addInterceptor(OkHttpInterceptor(settingsRepository))
+            .build()
+
+        return Retrofit
+            .Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://$BASE_URL")
+            .client(client)
+            .build()
+    }
 
     @Provides
     @Singleton

@@ -1,7 +1,5 @@
 package com.lexx.domain.models
 
-import java.time.LocalDateTime
-
 data class PlotInfo (
     val values: List<PlotLineInfo> = listOf(),
     val minValue: Float = Float.MAX_VALUE,

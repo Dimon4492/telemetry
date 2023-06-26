@@ -6,9 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface TelemetryApiService {
-    @GET
-    suspend fun getSensorsInfo(@Url url: String): List<SensorInfoDto>
+    @GET("/sensors")
+    suspend fun getSensorsInfo(): List<SensorInfoDto>
 
-    @GET
-    suspend fun getSensorsData(@Url url: String): List<SensorDataDto>
+    @GET("/data")
+    suspend fun getSensorsData(): List<SensorDataDto>
 }

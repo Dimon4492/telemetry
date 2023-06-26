@@ -14,22 +14,28 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataModule {
+    @Singleton
     @Binds
     abstract fun bindUserPreferencesRepository(dataStoreUserPreferencesRepository: DataStoreSettingsRepository): SettingsRepository
 
+    @Singleton
     @Binds
     abstract fun bindRemoteSensorsRepository(sensorsInfoRepository: SensorsInfoRepository): SensorsRepository
 
+    @Singleton
     @Binds
     abstract fun bindRemoteSensorsDataSource(webserviceSensorsRemoteDataSource: WebserviceSensorsInfoRemoteDataSource): SensorsInfoRemoteDataSource
 
+    @Singleton
     @Binds
     abstract fun PlotRemoteRepository(plotRemoteRepository: PlotRemoteRepository): PlotRepository
 
+    @Singleton
     @Binds
     abstract fun WebServicePlotInfoRemoteDataSource(webServicePlotInfoRemoteDataSource: WebServicePlotInfoRemoteDataSource): PlotInfoRemoteDataSource
 }

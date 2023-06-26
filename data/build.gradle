@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-        buildConfigField "String", "DEFAULT_BASE_URL", "\"http://192.168.0.123:8080\""
+        buildConfigField "String", "DEFAULT_BASE_URL", "\"192.168.0.1:8080\""
     }
 
     buildTypes {
@@ -40,6 +40,9 @@ android {
 
 dependencies {
     implementation project(path: ':domain')
+
+    // Logger
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

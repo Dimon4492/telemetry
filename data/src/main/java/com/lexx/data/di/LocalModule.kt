@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.lexx.data.api.telemetry.util.RemoteDbTimeFormatterBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +27,7 @@ object LocalModule {
     @Provides
     @Singleton
     fun provideDataFormatter(): DateTimeFormatter {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        return RemoteDbTimeFormatterBuilder()
+            .build()
     }
-
 }

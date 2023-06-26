@@ -4,17 +4,17 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lexx.presentation.navigation.TelemetryAppNavigationType
 
 @Composable
 fun TelemetryApp(
     windowSize: WindowWidthSizeClass,
+    viewModel: TelemetryAppViewModel,
     modifier: Modifier = Modifier
 ) {
     val navigationType: TelemetryAppNavigationType
 
-    val viewModel: TelemetryAppViewModel = viewModel()
+
     val telemetryAppUiState = viewModel.uiState.collectAsState().value
 
     when (windowSize) {

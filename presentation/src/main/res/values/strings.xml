@@ -4,4 +4,7 @@
     <string name="last_seen">Last seen:</string>
     <string name="last_value">Last value:</string>
     <string name="server_connect_error">Can\'t connect to server</string>
+    <string name="plot_page_title">Telemetry</string>
+    <string name="sensors_page_title">Sensors</string>
+    <string name="settings_page_title">Settings</string>
 </resources>

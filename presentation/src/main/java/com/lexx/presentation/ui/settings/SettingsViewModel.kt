@@ -17,8 +17,7 @@ class SettingsViewModel @Inject constructor(
     private val getServerAddressUseCase: GetServerAddressUseCase,
     private val setServerAddressUseCase: SetServerAddressUseCase
 ) : ViewModel() {
-    private val defaultServerAddress = "192.168.0.166:9090"
-    private val _uiState = MutableStateFlow(SettingsUiState(serverAddress = defaultServerAddress))
+    private val _uiState = MutableStateFlow(SettingsUiState())
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
 
     init {

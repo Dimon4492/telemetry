@@ -41,6 +41,9 @@ android {
 dependencies {
     implementation project(path: ':domain')
 
+    // Logger
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
     // Tests
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_test_ext_version"

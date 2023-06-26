@@ -1,7 +1,9 @@
 package com.lexx.presentation.ui.sensors
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -27,7 +29,11 @@ fun SensorsPage (
     modifier: Modifier = Modifier
 ) {
     val uiState = sensorsViewModel.uiState.collectAsState().value
-    LazyColumn(modifier.fillMaxWidth()) {
+    LazyColumn(
+        modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(Color.White)) {
         if (uiState.connectionError) {
             item {
                 Row(Modifier

@@ -1,10 +1,8 @@
 package com.lexx.presentation.ui.sensors
 
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lexx.domain.features.sensors.GetSensorsInfoUseCase
-import com.lexx.presentation.R
 import com.lexx.presentation.models.SensorsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

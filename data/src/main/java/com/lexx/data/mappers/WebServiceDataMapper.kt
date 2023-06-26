@@ -26,18 +26,14 @@ class WebServiceDataMapper @Inject constructor(
                 nameId = nameId,
                 name = name,
                 lastValue = lastValue.toString(),
-                lastTimestamp = stripDtoTimestampString(lastTimestamp)
+                lastTimestamp = lastTimestamp
             )
         }
     }
 
-    private fun stripDtoTimestampString(ts: String): String {
-        return ts.split(".")[0]
-    }
-
     private fun mapStringTimeToLong(ts: String) : Long {
         return LocalDateTime
-            .parse(stripDtoTimestampString(ts), dateTimeFormatter)
+            .parse(ts, dateTimeFormatter)
             .toEpochSecond(ZoneOffset.UTC)
     }
 
