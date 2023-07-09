@@ -5,9 +5,13 @@ import com.lexx.data.features.plot.PlotRemoteRepository
 import com.lexx.data.features.plot.remote.WebServicePlotInfoRemoteDataSource
 import com.lexx.data.features.sensors.SensorsInfoRemoteDataSource
 import com.lexx.data.features.sensors.SensorsInfoRepository
+import com.lexx.data.features.sensors.SensorsLocalDataSource
+import com.lexx.data.features.sensors.SensorsRoomLocalRepository
+import com.lexx.data.features.sensors.local.SensorsRoomLocalDataSource
 import com.lexx.data.features.sensors.remote.WebserviceSensorsInfoRemoteDataSource
 import com.lexx.data.features.settings.DataStoreSettingsRepository
 import com.lexx.domain.features.plot.PlotRepository
+import com.lexx.domain.features.sensors.SensorsLocalRepository
 import com.lexx.domain.features.sensors.SensorsRepository
 import com.lexx.domain.features.settings.SettingsRepository
 import dagger.Binds
@@ -38,4 +42,12 @@ abstract class DataModule {
     @Singleton
     @Binds
     abstract fun WebServicePlotInfoRemoteDataSource(webServicePlotInfoRemoteDataSource: WebServicePlotInfoRemoteDataSource): PlotInfoRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindSensorsRoomLocalRepository(sensorsRoomLocalRepository: SensorsRoomLocalRepository): SensorsLocalRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindSensorsRoomLocalDataSource(sensorsRoomLocalDataSource: SensorsRoomLocalDataSource): SensorsLocalDataSource
 }

@@ -1,8 +1,10 @@
 package com.lexx.presentation.models
 
-import com.lexx.domain.models.SensorInfo
-
 data class SensorsUiState(
-    val sensors: List<SensorInfo> = listOf(),
-    val connectionError: Boolean = false
+    val sensors: List<SensorUiInfo> = listOf(),
+    val connectionError: Boolean = false,
+    val noSensorsError: Boolean = true,
+    val selectedSensorInfo: SensorUiInfo = SensorUiInfo(),
+    val showEditor: Boolean = false,
+    val errorMessage: String = "",
 )

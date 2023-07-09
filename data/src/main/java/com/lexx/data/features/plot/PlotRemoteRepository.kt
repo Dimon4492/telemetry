@@ -12,27 +12,40 @@ class PlotRemoteRepository @Inject constructor(
     private val plotInfoRemoteDataSource: PlotInfoRemoteDataSource,
     private val mapper: WebServiceDataMapper,
 ) : PlotRepository {
-    override fun pauseNetworkPolling() {
-        plotInfoRemoteDataSource.pauseNetworkPolling()
+    override fun pauseNetworkPolling(pause: Boolean) {
+        plotInfoRemoteDataSource.pauseNetworkPolling(pause)
     }
 
-    override fun resumeNetworkPolling() {
-        plotInfoRemoteDataSource.resumeNetworkPolling()
+    override fun pauseHourPolling(pause: Boolean) {
+        plotInfoRemoteDataSource.pauseHourPolling(pause)
     }
 
-    override suspend fun getPlotInfo(): Flow<Result<PlotInfo>> {
-        return plotInfoRemoteDataSource.
-            sensorsData.map{
-            it.map{
-                mapper.mapPlotInfo(it)
-            }
-        }
+    override fun pauseSixHoursPolling(pause: Boolean) {
+        plotInfoRemoteDataSource.pauseSixHoursPolling(pause)
+    }
+
+    override fun pauseDayPolling(pause: Boolean) {
+        plotInfoRemoteDataSource.pauseDayPolling(pause)
+    }
+
+    override suspend fun getHourPlotInfo(): Flow<Result<PlotInfo>> {
+        return plotInfoRemoteDataSource.hourSensorsData
+    }
+    override suspend fun getSixHoursPlotInfo(): Flow<Result<PlotInfo>> {
+        return plotInfoRemoteDataSource.sixHoursSensorsData
+    }
+    override suspend fun getDayPlotInfo(): Flow<Result<PlotInfo>> {
+        return plotInfoRemoteDataSource.daySensorsData
     }
 }
 
 interface PlotInfoRemoteDataSource {
-    fun pauseNetworkPolling()
-    fun resumeNetworkPolling()
+    fun pauseNetworkPolling(pause: Boolean)
+    fun pauseHourPolling(pause: Boolean)
+    fun pauseSixHoursPolling(pause: Boolean)
+    fun pauseDayPolling(pause: Boolean)
 
-    val sensorsData: Flow<Result<List<SensorDataDto>>>
+    val hourSensorsData: Flow<Result<PlotInfo>>
+    val sixHoursSensorsData: Flow<Result<PlotInfo>>
+    val daySensorsData: Flow<Result<PlotInfo>>
 }

@@ -1,10 +1,20 @@
 <resources>
     <string name="app_name">Telemetry</string>
-    <string name="reload_title">reload</string>
     <string name="last_seen">Last seen:</string>
     <string name="last_value">Last value:</string>
     <string name="server_connect_error">Can\'t connect to server</string>
-    <string name="plot_page_title">Telemetry</string>
     <string name="sensors_page_title">Sensors</string>
     <string name="settings_page_title">Settings</string>
+    <string name="close">Close</string>
+    <string name="no_sensors_error">No sensors</string>
+    <string name="no_data_error">No data</string>
+    <string name="sensor_name_label">Sensor name:</string>
+    <string name="enabled_sensor_label">Enabled</string>
+    <string name="sensor_multiplier_label">Multiplier</string>
+    <string name="one_hour_title">H</string>
+    <string name="six_hour_title">6H</string>
+    <string name="one_day_title">D</string>
+    <string name="plot_hour_page_title">Telemetry [hour]</string>
+    <string name="plot_six_hours_page_title">Telemetry [6 hours]</string>
+    <string name="plot_day_page_title">Telemetry [day]</string>
 </resources>

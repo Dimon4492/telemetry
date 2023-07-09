@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.Preferences.Key
 import androidx.datastore.preferences.core.edit
+import com.lexx.data.BuildConfig
 import com.lexx.domain.features.settings.SettingsRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -18,10 +19,13 @@ class DataStoreSettingsRepository @Inject constructor(
         setStringPreference(serverAddressPreferencesKey, serverAddress)
     }
 
-    override suspend fun getServerAddress(
-        defaultServerAddress: String
-    ): String {
-        return getStringPreference(serverAddressPreferencesKey)
+    override suspend fun getServerAddress(): String {
+        var serverAddress = getStringPreference(serverAddressPreferencesKey)
+        if (serverAddress.isNotEmpty()) {
+            return serverAddress
+        }
+
+        return BuildConfig.DEFAULT_BASE_URL
     }
 
     private suspend fun setStringPreference(
@@ -37,10 +41,6 @@ class DataStoreSettingsRepository @Inject constructor(
         preferenceKey: Key<String>,
         preferenceDefaultValue: String = ""
     ): String {
-        return try {
-            dataStorePreferences.data.first()[preferenceKey] ?: preferenceDefaultValue
-        } catch (e: Exception) {
-            throw e
-        }
+        return dataStorePreferences.data.first()[preferenceKey] ?: preferenceDefaultValue
     }
 }

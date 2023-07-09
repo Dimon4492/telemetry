@@ -6,66 +6,107 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.lexx.domain.models.PlotInfo
 import com.lexx.presentation.R
+import com.lexx.presentation.models.PlotUiInfo
+import com.lexx.presentation.models.PlotUiPageState
 import com.lexx.presentation.ui.plot.PlotViewModel
-import timber.log.Timber
-import java.text.DecimalFormat
 
 @Composable
-fun PlotPage (
+fun HourPlotPage (
+    modifier: Modifier = Modifier,
     plotViewModel: PlotViewModel = viewModel(),
-    modifier: Modifier = Modifier
 ) {
     val uiState = plotViewModel.uiState.collectAsState().value
+    PlotPageBase(modifier, uiState.hourPlotUiPageState)
+}
+
+@Composable
+fun SixHoursPlotPage (
+    modifier: Modifier = Modifier,
+    plotViewModel: PlotViewModel = viewModel(),
+) {
+    val uiState = plotViewModel.uiState.collectAsState().value
+    PlotPageBase(modifier, uiState.sixHoursPlotUiPageState)
+}
+@Composable
+fun DayPlotPage (
+    modifier: Modifier = Modifier,
+    plotViewModel: PlotViewModel = viewModel(),
+) {
+    val uiState = plotViewModel.uiState.collectAsState().value
+    PlotPageBase(modifier, uiState.dayPlotUiPageState)
+}
+
+@Composable
+fun PlotPageBase (
+    modifier: Modifier = Modifier,
+    plotUiPageState: PlotUiPageState,
+) {
+
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.DarkGray)
+            .background(Color.White)
     ) {
-        if (uiState.connectionError) {
+        if (plotUiPageState.noDataError) {
+            Column {
+                Text(
+                    text = stringResource(id = R.string.no_data_error),
+                    Modifier.wrapContentHeight(),
+                )
+                Text(
+                    text = plotUiPageState.errorMessage,
+                    Modifier.wrapContentHeight(),
+                    color = Color.Red,
+                )
+            }
+        } else if (plotUiPageState.connectionError) {
             Row(
                 Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .background(Color.White)
             ) {
-                Text(
-                    text = stringResource(id = R.string.server_connect_error),
-                    color = Color.Red,
-                    modifier = Modifier.weight(1.0f)
-                )
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.server_connect_error),
+                        modifier = Modifier.wrapContentHeight(),
+                    )
+                    Text(
+                        text = plotUiPageState.errorMessage,
+                        modifier = Modifier.wrapContentHeight(),
+                        color = Color.Red,
+                    )
+                }
             }
         } else {
             TelemetryPlot(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
-                xValues = uiState.xValues,
-                yValues = uiState.yValues,
-                plotInfo = uiState.plotInfo,
+                xValues = plotUiPageState.xValues,
+                yValues = plotUiPageState.yValues,
+                plotInfo = plotUiPageState.plotInfo,
                 paddingSpace = dimensionResource(id = R.dimen.plot_padding_space),
             )
         }
@@ -77,7 +118,7 @@ fun TelemetryPlot(
     modifier : Modifier,
     xValues: List<String>,
     yValues: List<String>,
-    plotInfo: PlotInfo,
+    plotInfo: PlotUiInfo,
     paddingSpace: Dp,
 ) {
     val canvasLeftPadding = dimensionResource(id = R.dimen.plot_left_padding)
@@ -142,6 +183,10 @@ fun TelemetryPlot(
 
                 if (plotInfo.values.isNotEmpty()) {
                     for (plotLine in plotInfo.values) {
+                        if (!plotLine.enabled) {
+                            continue
+                        }
+
                         val minTimestamp = plotInfo.minTimestamp
                         val timestampRange = plotInfo.maxTimestamp - minTimestamp
                         val minValue = plotInfo.minValue
@@ -168,7 +213,7 @@ fun TelemetryPlot(
 
                             drawPath(
                                 stroke,
-                                color = Color.Black,
+                                color = plotLine.color,
                                 style = Stroke(
                                     width = 3f
                                 )

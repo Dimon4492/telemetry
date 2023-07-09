@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface SensorsRepository {
     fun getSensorsInfo(): Flow<Result<List<SensorInfo>>>
-    fun pauseNetworkPolling()
-    fun resumeNetworkPolling()
+    fun pauseNetworkPolling(pause: Boolean)
+    fun pauseSensorPolling(pause: Boolean)
 }

@@ -81,10 +81,6 @@ class WebServiceDataMapper @Inject constructor(
 
         return PlotInfo(
             values = values,
-            minValue = minValue,
-            maxValue = maxValue,
-            minTimestamp = minTimestamp,
-            maxTimestamp = maxTimestamp
         )
     }
 }

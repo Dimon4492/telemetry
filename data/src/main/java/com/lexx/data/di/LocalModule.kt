@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
 import com.lexx.data.api.telemetry.util.RemoteDbTimeFormatterBuilder
+import com.lexx.data.db.room.LocalDatabase
+import com.lexx.data.features.sensors.local.LocalSensorDataDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +32,23 @@ object LocalModule {
     fun provideDataFormatter(): DateTimeFormatter {
         return RemoteDbTimeFormatterBuilder()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDatabase(@ApplicationContext context: Context): LocalDatabase {
+        return Room.databaseBuilder(
+            context,
+            LocalDatabase::class.java,
+            "sensors"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalSensorDataDao(
+        localDatabase: LocalDatabase
+    ) : LocalSensorDataDao {
+        return localDatabase.sensorsLocalInfo()
     }
 }

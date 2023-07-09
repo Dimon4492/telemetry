@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Телеметрия</string>
+    <string name="last_seen">Время последнего измерения</string>
+    <string name="last_value">Значение последнего измерения</string>
+    <string name="server_connect_error">Не могу связаться с сервером</string>
+    <string name="sensors_page_title">Сенсоры</string>
+    <string name="settings_page_title">Настройки</string>
+    <string name="close">Закрыть</string>
+    <string name="no_sensors_error">Нет сенсоров</string>
+    <string name="no_data_error">Нет данных</string>
+    <string name="sensor_name_label">Имя:</string>
+    <string name="enabled_sensor_label">Активен</string>
+    <string name="sensor_multiplier_label">Множитель</string>
+    <string name="one_hour_title">Ч</string>
+    <string name="six_hour_title">6Ч</string>
+    <string name="one_day_title">Д</string>
+    <string name="plot_hour_page_title">Телеметрия [час]</string>
+    <string name="plot_six_hours_page_title">Телеметрия [6 часов]</string>
+    <string name="plot_day_page_title">Телеметрия [день]</string>
+</resources>

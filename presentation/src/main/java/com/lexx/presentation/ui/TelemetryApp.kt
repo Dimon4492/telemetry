@@ -14,7 +14,6 @@ fun TelemetryApp(
 ) {
     val navigationType: TelemetryAppNavigationType
 
-
     val telemetryAppUiState = viewModel.uiState.collectAsState().value
 
     when (windowSize) {
@@ -34,8 +33,9 @@ fun TelemetryApp(
     TelemetryHomeScreen(
         navigationType,
         telemetryAppUiState,
-        onTabPressed = {navigationAppContentType ->
+        onTabPressed = { navigationAppContentType ->
             viewModel.updateNavigationContent(navigationAppContentType)
         },
-        modifier=modifier)
+        modifier = modifier
+    )
 }

@@ -1,6 +1,5 @@
 package com.lexx.data.api.telemetry.util
 
-import com.lexx.data.BuildConfig
 import com.lexx.domain.features.settings.SettingsRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -15,7 +14,7 @@ class OkHttpInterceptor @Inject constructor(
         var request: Request = chain.request()
         lateinit var serverAddress: String
         runBlocking {
-            serverAddress = settingsRepository.getServerAddress(BuildConfig.DEFAULT_BASE_URL)
+            serverAddress = settingsRepository.getServerAddress()
         }
 
         val serverPath: String = request.url().encodedPath()
@@ -23,6 +22,7 @@ class OkHttpInterceptor @Inject constructor(
         val newRequest = request
             .newBuilder()
             .url(url)
+            .header("accept", "application/json")
             .build()
         return chain.proceed(newRequest)
     }
