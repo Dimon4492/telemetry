@@ -15,32 +15,13 @@ class DataStoreSettingsRepository @Inject constructor(
 ) : SettingsRepository {
     private val serverAddressPreferencesKey = stringPreferencesKey(name = "server_address")
 
-    override suspend fun setServerAddress(serverAddress: String) {
-        setStringPreference(serverAddressPreferencesKey, serverAddress)
-    }
-
     override suspend fun getServerAddress(): String {
-        var serverAddress = getStringPreference(serverAddressPreferencesKey)
-        if (serverAddress.isNotEmpty()) {
-            return serverAddress
-        }
-
-        return BuildConfig.DEFAULT_BASE_URL
+        return dataStorePreferences.data.first()[serverAddressPreferencesKey] ?: BuildConfig.DEFAULT_BASE_URL
     }
 
-    private suspend fun setStringPreference(
-        preferenceKey: Key<String>,
-        preferenceValue: String
-    ) {
+    override suspend fun setServerAddress(serverAddress: String) {
         dataStorePreferences.edit { it ->
-            it[preferenceKey] = preferenceValue
+            it[serverAddressPreferencesKey] = serverAddress
         }
-    }
-
-    private suspend fun getStringPreference(
-        preferenceKey: Key<String>,
-        preferenceDefaultValue: String = ""
-    ): String {
-        return dataStorePreferences.data.first()[preferenceKey] ?: preferenceDefaultValue
     }
 }

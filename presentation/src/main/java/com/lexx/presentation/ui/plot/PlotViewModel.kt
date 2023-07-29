@@ -11,9 +11,9 @@ import com.lexx.domain.features.sensors.GetSensorsLocalInfoUseCase
 import com.lexx.domain.features.sensors.local.SensorLocalInfo
 import com.lexx.domain.models.PlotInfo
 import com.lexx.presentation.mapping.UiMapper
-import com.lexx.presentation.models.PlotUiInfo
-import com.lexx.presentation.models.PlotUiPageState
-import com.lexx.presentation.models.PlotUiState
+import com.lexx.presentation.models.plot.PlotUiInfo
+import com.lexx.presentation.models.plot.PlotUiPageState
+import com.lexx.presentation.models.plot.PlotUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

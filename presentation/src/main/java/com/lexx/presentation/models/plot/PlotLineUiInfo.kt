@@ -1,4 +1,4 @@
-package com.lexx.presentation.models
+package com.lexx.presentation.models.plot
 
 import androidx.compose.ui.graphics.Color
 

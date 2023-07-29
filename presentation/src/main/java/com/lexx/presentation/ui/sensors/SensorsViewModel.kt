@@ -9,8 +9,8 @@ import com.lexx.domain.features.sensors.SetSensorLocalInfoUseCase
 import com.lexx.domain.features.sensors.local.SensorLocalInfo
 import com.lexx.domain.models.SensorInfo
 import com.lexx.presentation.mapping.UiMapper
-import com.lexx.presentation.models.SensorUiInfo
-import com.lexx.presentation.models.SensorsUiState
+import com.lexx.presentation.models.sensors.SensorUiInfo
+import com.lexx.presentation.models.sensors.SensorsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,31 +39,35 @@ class SensorsViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 getSensorsInfoUseCase()
-                    .combine(getSensorsLocalInfoUseCase()) { info: Result<List<SensorInfo>>, localInfo: List<SensorLocalInfo> ->
+                    .combine(getSensorsLocalInfoUseCase()) {info, localInfo ->
                         combineSensorsUiInfo(info, localInfo)
-                    }.collect {
-                        if (it.connectionError) {
-                            _uiState.value = _uiState.value.copy(
-                                noSensorsError = false,
-                                connectionError = true,
-                                errorMessage = it.errorMessage
-                            )
-                        } else if (it.sensors.isEmpty()) {
-                            _uiState.value = _uiState.value.copy(
-                                noSensorsError = true,
-                                connectionError = false,
-                                errorMessage = ""
-                            )
-                        } else {
-                            _uiState.value = _uiState.value.copy(
-                                noSensorsError = false,
-                                connectionError = false,
-                                sensors = it.sensors,
-                                errorMessage = ""
-                            )
-                        }
+                    }.collect {sensorsUiState ->
+                        collectSensorsUiState(sensorsUiState)
                     }
             }
+        }
+    }
+
+    private fun collectSensorsUiState(sensorsUiState: SensorsUiState) {
+        if (sensorsUiState.connectionError) {
+            _uiState.value = _uiState.value.copy(
+                noSensorsError = false,
+                connectionError = true,
+                errorMessage = sensorsUiState.errorMessage
+            )
+        } else if (sensorsUiState.sensors.isEmpty()) {
+            _uiState.value = _uiState.value.copy(
+                noSensorsError = true,
+                connectionError = false,
+                errorMessage = ""
+            )
+        } else {
+            _uiState.value = _uiState.value.copy(
+                noSensorsError = false,
+                connectionError = false,
+                sensors = sensorsUiState.sensors,
+                errorMessage = ""
+            )
         }
     }
 

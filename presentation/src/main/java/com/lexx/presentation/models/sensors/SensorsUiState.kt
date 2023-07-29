@@ -1,4 +1,4 @@
-package com.lexx.presentation.models
+package com.lexx.presentation.models.sensors
 
 data class SensorsUiState(
     val sensors: List<SensorUiInfo> = listOf(),

@@ -25,7 +25,7 @@ import com.github.skydoves.colorpicker.compose.BrightnessSlider
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 import com.lexx.presentation.R
-import com.lexx.presentation.models.SensorUiInfo
+import com.lexx.presentation.models.sensors.SensorUiInfo
 
 @Composable
 fun SensorEditor(

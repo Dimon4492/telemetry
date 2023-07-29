@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lexx.presentation.R
-import com.lexx.presentation.models.SensorUiInfo
+import com.lexx.presentation.models.sensors.SensorUiInfo
 
 @Composable
 fun SensorsPage (

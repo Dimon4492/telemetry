@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lexx.presentation.R
-import com.lexx.presentation.models.PlotUiInfo
-import com.lexx.presentation.models.PlotUiPageState
+import com.lexx.presentation.models.plot.PlotUiInfo
+import com.lexx.presentation.models.plot.PlotUiPageState
 import com.lexx.presentation.ui.plot.PlotViewModel
 
 @Composable

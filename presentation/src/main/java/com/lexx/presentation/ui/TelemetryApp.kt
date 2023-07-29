@@ -2,40 +2,26 @@ package com.lexx.presentation.ui
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.lexx.presentation.navigation.TelemetryAppNavigationType
+import com.lexx.presentation.ui.home_screen.HomeScreen
+import com.lexx.presentation.ui.navigation.AppNavigationType
 
 @Composable
 fun TelemetryApp(
+    modifier: Modifier = Modifier,
     windowSize: WindowWidthSizeClass,
-    viewModel: TelemetryAppViewModel,
-    modifier: Modifier = Modifier
 ) {
-    val navigationType: TelemetryAppNavigationType
-
-    val telemetryAppUiState = viewModel.uiState.collectAsState().value
-
-    when (windowSize) {
+    val appNavigationType = when (windowSize) {
         WindowWidthSizeClass.Compact -> {
-            navigationType = TelemetryAppNavigationType.BOTTOM_NAVIGATION
-        }
-        WindowWidthSizeClass.Medium -> {
-            navigationType = TelemetryAppNavigationType.NAVIGATION_RAIL
-        }
-        WindowWidthSizeClass.Expanded -> {
-            navigationType = TelemetryAppNavigationType.NAVIGATION_RAIL
+            AppNavigationType.BOTTOM_NAVIGATION
         }
         else -> {
-            navigationType = TelemetryAppNavigationType.BOTTOM_NAVIGATION
+            AppNavigationType.NAVIGATION_RAIL
         }
     }
-    TelemetryHomeScreen(
-        navigationType,
-        telemetryAppUiState,
-        onTabPressed = { navigationAppContentType ->
-            viewModel.updateNavigationContent(navigationAppContentType)
-        },
-        modifier = modifier
+
+    HomeScreen(
+        modifier = modifier,
+        appNavigationType = appNavigationType,
     )
 }

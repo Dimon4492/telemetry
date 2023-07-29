@@ -1,5 +1,4 @@
-package com.lexx.presentation.models
-
+package com.lexx.presentation.models.plot
 
 data class PlotUiInfo (
     val values: List<PlotLineUiInfo> = listOf(),

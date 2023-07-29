@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lexx.domain.features.settings.GetServerAddressUseCase
 import com.lexx.domain.features.settings.SetServerAddressUseCase
-import com.lexx.presentation.models.SettingsUiState
+import com.lexx.presentation.models.settings.SettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,8 +28,9 @@ class SettingsViewModel @Inject constructor(
 
     private fun loadSettings() {
         viewModelScope.launch {
-            val serverAddress = getServerAddressUseCase()
-            _uiState.value = _uiState.value.copy(serverAddress = serverAddress)
+            withContext(Dispatchers.IO) {
+                _uiState.value = _uiState.value.copy(serverAddress = getServerAddressUseCase())
+            }
         }
     }
 
@@ -35,7 +38,9 @@ class SettingsViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(serverAddress = serverAddress)
 
         viewModelScope.launch {
-            setServerAddressUseCase(serverAddress)
+            withContext(Dispatchers.IO) {
+                setServerAddressUseCase(serverAddress)
+            }
         }
     }
 }

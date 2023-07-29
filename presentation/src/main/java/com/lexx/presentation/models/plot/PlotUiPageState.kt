@@ -1,4 +1,4 @@
-package com.lexx.presentation.models
+package com.lexx.presentation.models.plot
 
 import com.lexx.domain.PLOT_Y_STEPS
 

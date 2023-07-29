@@ -7,10 +7,10 @@ import com.lexx.domain.models.PlotData
 import com.lexx.domain.models.PlotInfo
 import com.lexx.domain.models.PlotLineInfo
 import com.lexx.domain.models.SensorInfo
-import com.lexx.presentation.models.PlotLineUiInfo
-import com.lexx.presentation.models.PlotUiData
-import com.lexx.presentation.models.PlotUiInfo
-import com.lexx.presentation.models.SensorUiInfo
+import com.lexx.presentation.models.plot.PlotLineUiInfo
+import com.lexx.presentation.models.plot.PlotUiData
+import com.lexx.presentation.models.plot.PlotUiInfo
+import com.lexx.presentation.models.sensors.SensorUiInfo
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date

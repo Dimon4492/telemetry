@@ -1,4 +1,4 @@
-package com.lexx.presentation.models
+package com.lexx.presentation.models.plot
 
 data class PlotUiState (
     val hourPlotUiPageState: PlotUiPageState = PlotUiPageState(),

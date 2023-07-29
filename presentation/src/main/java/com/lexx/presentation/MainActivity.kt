@@ -12,14 +12,13 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
 import com.lexx.presentation.theme.TelemetryTheme
 import com.lexx.presentation.ui.TelemetryApp
-import com.lexx.presentation.ui.TelemetryAppViewModel
+import com.lexx.presentation.ui.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: TelemetryAppViewModel by viewModels()
+    private val viewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     val windowSize = calculateWindowSizeClass(this)
                     TelemetryApp(
                         windowSize = windowSize.widthSizeClass,
-                        viewModel = viewModel
                     )
                 }
             }
